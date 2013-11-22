@@ -8,18 +8,6 @@
 
 # source("R_function--CB-plot_TFBS-landscape_TFBS-bi-motif_Dinucleotide-environment.R")
 
-#Examples:
-# alias="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/oPOSSUM_results_dinucShuf/Cmyc_hESC/results.txt"
-# alias="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/overlap20perc_palind/Nfyb_wgEncodeSydhTfbsHelas3NfybIggrabPk.narrowPeak.1000bp.NFYB-PWM.20percOverlap.top10.seqscores.alt"
-# alias="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/overlap20perc_palind/Usf2_wgEncodeSydhTfbsGm12878Usf2IggmusPk.narrowPeak.1000bp.USF1-PWM.20percOverlap.top10.seqscores.alt"
-# alias="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/overlap20perc_palind/Srebp1_wgEncodeSydhTfbsHepg2Srebp1InslnStdPk.narrowPeak.1000bp.SREBF1-SREBP1-HEPG2-PWM.20percOverlap.top10.seqscores.alt"
-# alias="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/Srebp1_example_absScore.alt"
-# alias ="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/Stat1_wgEncodeSydhTfbsHelas3Stat1Ifng30StdPk.narrowPeak.1000bp.STAT1-PWM.20percOverlap.top10.seqscores.score85.120proxpeakMax.dinuc.align"
-# alias ="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/Ctcf_sample_1000bp_forAlignment_startOffset.dinuc.align"   # ok
-# alias ="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/Ctcf_sample_1000bp_forAlignment_mid500.dinuc.align"    # off
-# alias ="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/Ctcf_sample_1000bp_forAlignment_mid501.dinuc.align"    # ok
-# alias ="~/RESEARCH_link/prj_COMPOSITION/RESULTS_2012/scores_and_positions/data_files/Encode_hg19/Ctcf_sample_1000bp_forAlignment_mid501width.dinuc.align"   #no
-
 
 cat( "Composition-bias plot:", paste("", "CB.plot( data.file, col.X=F, col.Y=F, headerline=T,  col.Y.pval=F, title.plot=\"\", yaxis.lim=F, save.plot.to=F, col.TFnames=F )", sep="\t"),  sep="\n" )
 cat(sep="\n")
