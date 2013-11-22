@@ -1,15 +1,6 @@
 TFBS_Visualization
 ==================
 
-
-######################################
-# Rebecca Worsley Hunt -- 2013.11.20 #
-# Wasserman Lab                      #
-# University of British Columbia     #
-######################################
-
-README
-
 ---------------------------------------------------------------------------
 R_function--CB-plot_TFBS-landscape_TFBS-bi-motif_Dinucleotide-environment.R
 ---------------------------------------------------------------------------
