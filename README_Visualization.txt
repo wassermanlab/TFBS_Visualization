@@ -8,12 +8,12 @@
 README
 
 ---------------------------------------------------------------------------
-R_function--CB-plot_TFBS-landscape_TFBS-bi-motif_Dinucleotide-environment.R
+Visualization_methods_Rcode.R
 ---------------------------------------------------------------------------
 
 If R is not yet installed, visit http://cran.r-project.org
 
-To load the functions within the file R_function--CB-plot_TFBS-landscape_TFBS-bi-motif_Dinucleotide-environment.R, use the command source() e.g. source("/dir1/dir2/R_function--CB-plot_TFBS-landscape_TFBS-bi-motif_Dinucleotide-environment.R"), where dir1 and dir2 represent the location (absolute path) of the R code.
+To load the functions within the file Visualization_methods_Rcode.R, use the command source() e.g. source("/dir1/dir2/Visualization_methods_Rcode.R"), where dir1 and dir2 represent the location (absolute path) of the R code.
 
 To view the usage of the four plotting functions, use the command view.help(), which is the last function provided in the R file.
 
