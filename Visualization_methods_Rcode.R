@@ -6,7 +6,7 @@
 ##############################
 
 
-# source("R_function--CB-plot_TFBS-landscape_TFBS-bi-motif_Dinucleotide-environment.R")
+# source("Visualization_methods_Rcode.R")
 
 
 cat( "Composition-bias plot:", paste("", "CB.plot( data.file, col.X=F, col.Y=F, headerline=T,  col.Y.pval=F, title.plot=\"\", yaxis.lim=F, save.plot.to=F, col.TFnames=F )", sep="\t"),  sep="\n" )
