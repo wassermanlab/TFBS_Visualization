@@ -15,16 +15,16 @@
 # 
 # view.help()
 #
-# CB.plot( data.file=F, col.X=F, col.Y=F, col.Y.pval=F, yaxis.lim=F, col.TFnames=F, headerline=T, title.plot="", save.plot.to=F )
+# CB.plot( data.file=NA, col.X=0, col.Y=0, col.Y.pval=F, yaxis.lim=F, col.TFnames=0, headerline=T, title.plot="", save.plot.to=F )
 # Composition-bias plot:   x-axis is GC content of PFMs, y-axis is motif enrichment scores from TFBS enrichment analysis software
 #
-# landscape.view( data.file=F,  col.X=F, col.Y=F, score.type="relative", yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot="", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20)
+# landscape.view( data.file=NA,  col.X=0, col.Y=0, score.type="relative", yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot="", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20)
 # TFBS-landscape view:   x-axis is the distance between a motif and the peak local maximum (or peak centre) of a ChIP-Seq peak, the y-axis is the PWM motif score
 #
-# bimotif.view( data.file=F,  col.X=F, col.Y=F, resolution=5, yaxis.lim=F, headerline=T, title.plot="", save.plot.to=F )
+# bimotif.view( data.file=NA,  col.X=0, col.Y=0, resolution=5, yaxis.lim=F, headerline=T, title.plot="", save.plot.to=F )
 # TFBS-bi-motif view:   x-axis is the distance between two motifs (motif2 and motif1), and the y-axis is the distsance between motif1 and the peak local maximum of a ChIP-Seq peak
 #
-# dinucleotide.view( data.file=F, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot="", save.plot.to=F )
+# dinucleotide.view( data.file=NA, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot="", save.plot.to=F )
 # Dinculeotide-environment view:  x-axis is the position of a nucleotide relative to the single motif per sequence that has been aligned across all sequences, and the y-axis is the frequency of the dinucleotide across the aligned sequences.   This function requires input from a provided perl script for aligning sequences on a give feature: preVisualization_dinucleotide_alignment_perlCode.pl
 
 # All visualization functions have an option to save the plot: 'save.plot.to'.  The view.help() function usage details state that the absolute path describing the location to save the plot is necessary e.g. save.plot.to="/directory1/directory2/filename".  However, if prior to running the visualization function you use the setwd() command to tell R the destination for the plots to be save, e.g. setwd("directory1/directory2"), then R will automatically use the path specificed, and the only string to provide to 'save.plot.to' will be the filename  e.g.  save.plot.to="filename"
@@ -33,24 +33,24 @@
 
 # display functions and options to user in R console
 cat(sep="\n")
-cat( "+ view.help()", sep="\n")
+cat( "+ View details of functions:", "view.help()", sep="\n")
 cat(sep="\n")
-cat( "+ Composition-bias plot:", paste("CB.plot( data.file=F, col.X=F, col.Y=F, col.Y.pval=F, yaxis.lim=F, col.TFnames=F, headerline=T, title.plot=\"\", save.plot.to=F  )", sep="\t"),  sep="\n" )
+cat( "+ Composition-bias plot:", paste("CB.plot( data.file=NA, col.X=0, col.Y=0, col.Y.pval=F, yaxis.lim=F, col.TFnames=0, headerline=T, title.plot=\"\", save.plot.to=F  )", sep="\t"),  sep="\n" )
 cat(sep="\n")
-cat( "+ TFBS-landscape view:", paste("landscape.view( data.file=F, col.X=F, col.Y=F, score.type=\"relative\", yaxis.lim1=F, yaxis.lim2=F, headerline=T,  title.plot=\"\", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20 )", sep="\t"), sep="\n" )
+cat( "+ TFBS-landscape view:", paste("landscape.view( data.file=NA, col.X=0, col.Y=0, score.type=\"relative\", yaxis.lim1=F, yaxis.lim2=F, headerline=T,  title.plot=\"\", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20 )", sep="\t"), sep="\n" )
 cat(sep="\n")
-cat( "+ TFBS-bi-motif view:", paste( "bimotif.view(  data.file=F, col.X=F, col.Y=F, resolution=5, yaxis.lim=F, headerline=T, title.plot=\"\", save.plot.to=F  )", sep="\t"), sep="\n" )
+cat( "+ TFBS-bi-motif view:", paste( "bimotif.view(  data.file=NA, col.X=0, col.Y=0, resolution=5, yaxis.lim=F, headerline=T, title.plot=\"\", save.plot.to=F  )", sep="\t"), sep="\n" )
 cat(sep="\n")
-cat( "+ Dinucleotide-envinronment view:", paste( "dinucleotide.view( data.file=F,  x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot=\"\", save.plot.to=F  )", sep="\t"),  sep="\n" )
+cat( "+ Dinucleotide-envinronment view:", paste( "dinucleotide.view( data.file=NA,  x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot=\"\", save.plot.to=F  )", sep="\t"),  sep="\n" )
 cat(sep="\n")
 
 	
 #***************************
 #  Composition-bias plot
 #***************************
-CB.plot = function( data.file=F, col.X=F, col.Y=F,  col.Y.pval=F, yaxis.lim=F, col.TFnames=F, headerline=T, title.plot="",  save.plot.to=F  ){
+CB.plot = function( data.file=NA, col.X=0, col.Y=0,  col.Y.pval=F, yaxis.lim=F, col.TFnames=0, headerline=T, title.plot="",  save.plot.to=F  ){
 			# require data and column names
-			if( data.file==F | col.X==F | col.Y==F ){
+			if( is.na(data.file) | col.X==0 | col.Y==0 ){
 				stop("The data file, or column identifiers for col.X and/or col.Y arguments are missing.");
 			}
 			print("loading data....")
@@ -93,7 +93,7 @@ CB.plot = function( data.file=F, col.X=F, col.Y=F,  col.Y.pval=F, yaxis.lim=F, c
 				pdf( file=location, width=5, height=5, pointsize=12 ) 
 			}
 			plot(data.file[, col.X ], data.file[, col.Y ], cex=0.5 , cex.axis=1, cex.lab=1, cex.main=0.9, main= title.plot,  xlab="PFM GC content", ylab=paste("enrichment score (column: ", col.Y,")", sep="" ), xlim=xlimit, ylim=ylimit )
-			if( col.TFnames != F){
+			if( col.TFnames != 0){
 					text( data.file[, col.X ]+xlimit[2]*0.01, data.file[, col.Y ]+ylimit[2]*0.01,  data.file[, col.TFnames] , cex=0.6, srt=0, adj=0)
 			}
 			if( save.plot.to !=F){
@@ -104,9 +104,9 @@ CB.plot = function( data.file=F, col.X=F, col.Y=F,  col.Y.pval=F, yaxis.lim=F, c
 #***************************
 #  TFBS-landscape view  ... optional heuristic thresholds
 #***************************
-landscape.view = function( data.file=F,  col.X=F, col.Y=F, score.type="relative",  yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot="", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20){
+landscape.view = function( data.file=NA,  col.X=0, col.Y=0, score.type="relative",  yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot="", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20){
 			# require data and column names
-			if( data.file==F | col.X==F | col.Y==F ){
+			if( is.na(data.file) | col.X==0 | col.Y==0 ){
 				stop("The data file, or column identifiers for col.X and/or col.Y arguments are missing.");
 			}
 			print("loading data....")
@@ -423,9 +423,9 @@ landscape.view = function( data.file=F,  col.X=F, col.Y=F, score.type="relative"
 #***************************
 #  TFBS-bi-motif view
 #***************************
-bimotif.view =function( data.file=F,  col.X=F, col.Y=F, resolution=5, yaxis.lim=F, headerline=T, title.plot="",  save.plot.to=F ){
+bimotif.view =function( data.file=NA,  col.X=0, col.Y=0, resolution=5, yaxis.lim=F, headerline=T, title.plot="",  save.plot.to=F ){
 			# require data and column names
-			if( data.file==F | col.X==F | col.Y==F ){
+			if( is.na(data.file) | col.X==0 | col.Y==0 ){
 				stop("The data file, or column identifiers for col.X and/or col.Y arguments are missing.");
 			}
 			print("loading data....")
@@ -459,8 +459,8 @@ bimotif.view =function( data.file=F,  col.X=F, col.Y=F, resolution=5, yaxis.lim=
 #***************************
 #  Dinucleotide-environment view
 #*************************** 
-dinucleotide.view = function( data.file=F, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot="", save.plot.to=F ){
-			if( data.file==F ){
+dinucleotide.view = function( data.file=NA, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot="", save.plot.to=F ){
+			if( is.na(data.file) ){
 				stop("The data file is missing.");
 			}
 			print("loading data....")
@@ -497,7 +497,7 @@ dinucleotide.view = function( data.file=F, x1.adj=100, x2.adj=100, yaxis.lim=F, 
 			colours=c("aquamarine", "bisque4", "blue", "blueviolet", "red", "chartreuse3", "chocolate", "plum", "darkgoldenrod2", "deeppink3", "dodgerblue1", "forestgreen", "indianred1", "lightblue2", "cyan4","black")  
 			names(colours )=c("AA","GG", "CC", "TT", "AG",  "AC", "AT*", "GA", "GC*", "GT", "CA", "CG*", "CT", "TA*", "TG", "TC" )	
 			for( ind in c(1:16) ) {   # 16 dinculeotides = 16 plots
-				plot( 1:length(data.file[1,] ), data.file[ ind +1, ]/data.file[1, ],  main="", xlab=xlabel, ylab=ylabel, cex=0.3, lwd=1.5, col=colours[ ind ], xlim=xlimit, ylim= ylimit, type="b" , xaxt="n", yaxt="n")   
+				plot( 1:length(data.file[1,] ), data.file[ ind +1, ]/data.file[1, ],  main="", xlab="", ylab="", cex=0.3, lwd=1.5, col=colours[ ind ], xlim=xlimit, ylim= ylimit, type="b" , xaxt="n", yaxt="n")   
 				if(ind < 16){ 
 					par(new=T ) 
 				} 
@@ -524,18 +524,18 @@ view.help = function(){
 	cat( "Note: ") ;
 	writeLines(strwrap("1) non-logical and non-numeric values should be in double quotes e.g. title.plot=\"My plot 1\"",  indent=0, exdent=0, initial="\t", prefix="\t\t   ") )
 	writeLines(strwrap("2) logical values are T for true and F for false", indent=0, exdent=0, initial="\t\t", prefix="\t\t   ") )
-	writeLines(strwrap("3) if identifying the columns by name rather than by number, column names in the data file must consist of either alphanumeric or '_', because R converts some characters, like spaces or hyphens, to dots '.'", indent=0, exdent=0, initial="\t\t", prefix="\t\t   ") )
+	writeLines(strwrap("3) if identifying the columns by name rather than by number, column names in the data file must consist of either alphanumeric or '_', because R converts some characters, like spaces or hyphens, to dots '.' when they are present in a column name. A '#' at the start of a column name is converted to 'X.'", indent=0, exdent=0, initial="\t\t", prefix="\t\t   ") )
 
 #***************************
 #  Composition-bias plot
 #***************************
 	cat("", sep="\n")
-	cat( "-------------------------", "Composition-bias plot", "-------------------------", "CB.plot(  data.file=F, col.X=F, col.Y=F,  col.Y.pval=F, yaxis.lim=F, col.TFnames=F, headerline=T, title.plot=\"\", save.plot.to=F )",  sep="\n" )
+	cat( "-------------------------", "Composition-bias plot", "-------------------------", "CB.plot(  data.file=NA, col.X=0, col.Y=0,  col.Y.pval=F, yaxis.lim=F, col.TFnames=0, headerline=T, title.plot=\"\", save.plot.to=F )",  sep="\n" )
 	cat("", sep="\n")
 	cat( "Arguments:", sep="\n")
 	cat( "data.file"); writeLines(strwrap("file location (absolute path and file name)",  indent=0, exdent=0, initial="\t\t", prefix="\t\t\t") )
-	cat( "col.X");  writeLines(strwrap("column number (or name) of PFM GC composition",  indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t") )
-	cat( "col.Y");  writeLines(strwrap("column number (or name) of enrichment scores",  indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t") )
+	cat( "col.X");  writeLines(strwrap("column number (or name) in data file of PFM GC composition",  indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t") )
+	cat( "col.Y");  writeLines(strwrap("column number (or name) in data file of enrichment scores",  indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t") )
 	cat( "col.Y.pval");  writeLines(strwrap("logical (T or F), are enrichment scores p-values?  (default=F)",  indent=0, exdent=0, initial="\t\t", prefix="\t\t\t") )
 	cat( "yaxis.lim");  writeLines(strwrap("the upper limit of the y-axis (default=F, function decides the limit)",  indent=0, exdent=0, initial="\t\t", prefix="\t\t\t") )
 	cat( "col.TFnames"); writeLines(strwrap("the column number (or name) of the TF names to use as labels on the plot (default=F, no labels)",  indent=0, exdent=0, initial="\t\t", prefix="\t\t\t") )
@@ -547,12 +547,12 @@ view.help = function(){
 #***************************
 #  TFBS-landscape view  ... optional heuristic thresholds
 #***************************
-	cat("-------------------------", "TFBS-landscape", "-------------------------",  "landscape.view( data.file=F, col.X=F, col.Y=F, score.type=\"relative\", yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot=\"\", save.plot.to=F, threshold=F, heuristic.plot=F, heur.resid.fold=2, heur.score.diff=0.20)", sep="\n" )
+	cat("-------------------------", "TFBS-landscape", "-------------------------",  "landscape.view( data.file=NA, col.X=0, col.Y=0, score.type=\"relative\", yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot=\"\", save.plot.to=F, threshold=F, heuristic.plot=F, heur.resid.fold=2, heur.score.diff=0.20)", sep="\n" )
 	cat("", sep="\n")
 	cat( "Arguments:", sep="\n")
 	cat( "data.file");  writeLines(strwrap("file location (absolute path and file name)", indent=0, exdent=0, initial="\t\t", prefix="\t\t\t") )
-	cat( "col.X");   writeLines(strwrap("column number (or name) of distances between motif to peakMax", indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t") )
-	cat( "col.Y");  writeLines(strwrap("column number (or name) of motif PWM scores (not p-values)", indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t") )
+	cat( "col.X");   writeLines(strwrap("column number (or name) in data file of distances between motif to peakMax", indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t") )
+	cat( "col.Y");  writeLines(strwrap("column number (or name) in data file of motif PWM scores (not p-values)", indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t") )
 	cat( "score.type");   writeLines(strwrap("type of motif score: \"relative\" (default) or \"raw\" (default=\"relative\"). Motif relative scores range from 0-100 (they are derived from raw PWM motif scores); raw PWM motif scores vary with the PWM, but might range -50 to +20 ", indent=0, exdent=0, initial="\t\t", prefix="\t\t\t\t") )
 	cat( "yaxis.lim1");  writeLines(strwrap("the upper limit of the landscape-view histogram's left y-axis (default=F, function decides the limit)",  indent=0, exdent=0, initial="\t\t", prefix="\t\t\t") )	
 	cat( "yaxis.lim2");  writeLines(strwrap("the upper limit of the landscape-view histogram's right y-axis (default=F, function decides the limit)",  indent=0, exdent=0, initial="\t\t", prefix="\t\t\t") )	
@@ -568,12 +568,12 @@ view.help = function(){
 #***************************
 #  TFBS-bi-motif view
 #***************************
-	cat("-------------------------",  "TFBS-bi-motif", "-------------------------", "bimotif.view( data.file=F, col.X=F, col.Y=F, resolution=5, yaxis.lim=F, headerline=T, title.plot=\"\", save.plot.to=F)", sep="\n" )
+	cat("-------------------------",  "TFBS-bi-motif", "-------------------------", "bimotif.view( data.file=NA, col.X=0, col.Y=0, resolution=5, yaxis.lim=F, headerline=T, title.plot=\"\", save.plot.to=F)", sep="\n" )
 	cat("", sep="\n")
 	cat( "Arguments:", sep="\n")
 	cat( "data.file"); writeLines(strwrap("file location (absolute path and file name)", indent=0, exdent=0, initial="\t\t", prefix="\t\t\t\t") )
-	cat( "col.X");  writeLines(strwrap("column number (or name) for distances between motif1 and the peakMax", indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t\t") )
-	cat( "col.Y");  writeLines(strwrap("column number (or name) for distances between motif2 and the peakMax", indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t\t") )
+	cat( "col.X");  writeLines(strwrap("column number (or name) in data file of distances between motif1 and the peakMax", indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t\t") )
+	cat( "col.Y");  writeLines(strwrap("column number (or name) in data file of distances between motif2 and the peakMax", indent=0, exdent=0, initial="\t\t\t", prefix="\t\t\t\t") )
 	cat( "resolution");  writeLines(strwrap("the histogram resolution in base pairs i.e. width of the histogram bars (default=5). ", indent=0, exdent=0, initial="\t\t", prefix="\t\t\t\t") )
 	cat( "yaxis.lim");  writeLines(strwrap("the upper limit of the y-axis (default=F, function decides the limit)",  indent=0, exdent=0, initial="\t\t", prefix="\t\t\t") )	
 	cat( "headerline"); writeLines(strwrap("logical (T or F), does your file have column names?  (default=T)", indent=0, exdent=0, initial="\t\t", prefix="\t\t\t\t") )
@@ -584,7 +584,7 @@ view.help = function(){
 #***************************
 #  Dinucleotide-environment view
 #***************************	
-	cat("-------------------------",  "Dinucleotide-envinronment", "-------------------------", "dinucleotide.view( data.file=F, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot=\"\", save.plot.to=F)",  sep="\n" )
+	cat("-------------------------",  "Dinucleotide-envinronment", "-------------------------", "dinucleotide.view( data.file=NA, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot=\"\", save.plot.to=F)",  sep="\n" )
 	cat("", sep="\n")
 	cat( "Arguments:", sep="\n")
 	cat( "data.file"); writeLines(strwrap("file location (absolute path and file name)", indent=0, exdent=0, initial="\t\t", prefix="\t\t\t\t") )

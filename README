@@ -13,16 +13,19 @@ Visualization_methods_Rcode.R
 
 If R is not yet installed, visit http://cran.r-project.org
 
-To load the functions within the file Visualization_methods_Rcode.R, use the command source() e.g. source("/directory1/directory2/Visualization_methods_Rcode.R"), where directory1 and directory2 represent the location (absolute path) of the R code.
+To load the functions within the file Visualization_methods_Rcode.R, use the command source() e.g. source("/directory1/directory2/Visualization_methods_Rcode.R"), where /directory1/directory2/ etc. represent the location (absolute path) of the R Visualization code.
 
 To view the usage of the four plotting functions, with details on function arguments, use the command view.help() (the last function provided in the R file). Below is a brief synopsis.
+
+If data files are in one directory, and/or you intend to save files to the same directory, you can use the setwd() command (set working directory) to avoid typing the absolute path to your files each time you use a Visualization function e.g. all your data files are in /Users/yourName/dir1/dir2/. Thus, use setwd("/Users/yourName/dir1/dir2/") to work within this directory. You can use getwd() command to check that the working directory is set as you expected. R will now automatically use the path specified for retrieving and saving files until you change the path with setwd() or by providing an absolute path to the function arguments. Now, to identify a data file or to save a plot, you only need to use the name of the file instead of the full path e.g. data.file="testdata/testdata_CBplot_Hnf4a_Hepg_200bp.txt" or save.plot.to="CBplot_Hnf4a"
+
 
 
 ---------------------
 Composition-bias plot 
 ---------------------
 
-function call:  CB.plot( data.file=F, col.X=F, col.Y=F, col.Y.pval=F, yaxis.lim=F, col.TFnames=F, headerline=T, title.plot="", save.plot.to=F )
+function call:  CB.plot( data.file=NA, col.X=0, col.Y=0, col.Y.pval=F, yaxis.lim=F, col.TFnames=0, headerline=T, title.plot="", save.plot.to=F )
 
 Generates a plot with PFM GC nucleotide composition on the x-axis and motif enrichment score on the y-axis. The PFM GC nucleotide composition must be provided by the user if the motif enrichment software does not provide it. We only know of one motif enrichment software that provides PFM GC composition: oPOSSUM 3.0, however this can be simply calculated from the PFM binding profiles.
 
@@ -39,7 +42,7 @@ CB.plot( data.file= filename, col.X="GC.Content", col.Y="Zscore", col.TFnames=1 
 TFBS-landscape view
 -------------------
 
-function call: landscape.view( data.file=F,  col.X=F, col.Y=F, score.type="relative", yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot="", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20)
+function call: landscape.view( data.file=NA,  col.X=0, col.Y=0, score.type="relative", yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot="", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20)
 
 Requires TF-motif distances to the peak local maximum (or peak centre) of a set of sequences (x-axis) and the associated PWM motif scores (y-axis). Distance measurement is best done from motif centre to peakMax. PWM motif scores can be either the raw score, or the relative score, but the code will not handle p-values. If PWM raw scores are used, they may produce different results than the relative score. Relative scores allow single value hard-coded parameters to be used in the code (such as cutoff values) across all PWMs, but because the code could not assume access to the full range of each PWM's raw scores, it could not convert the hard coded parameter values to the equivalent raw scores specific to each PWM. The hard-coded parameters were approximated but will not be a perfect match for each PWM. Use the optional heuristic decision plots to confirm results.
 
@@ -60,7 +63,7 @@ results = landscape.view( data.file=alias, col.X="motif1.distancePeakMax", col.Y
 TFBS-bi-motif view
 ------------------
 
-function call: bimotif.view( data.file=F,  col.X=F, col.Y=F, resolution=5, yaxis.lim=F, headerline=T, title.plot="", save.plot.to=F )
+function call: bimotif.view( data.file=NA,  col.X=0, col.Y=0, resolution=5, yaxis.lim=F, headerline=T, title.plot="", save.plot.to=F )
 
 While col.X and col.Y provide the column number for the motif_1 distance to peakMax and motif_2 distance to peakMax respectively within the data.file, the R code will convert the distances to plot the spacing between motif_2 and motif_1 on the x-axis and the distance from motif_1 to peakMax on the y-axis. Distance measurement is best done from motif centre to peakMax.
 
@@ -78,7 +81,7 @@ bimotif.view( filename, col.X="motif1.distancePeakMax", col.Y="motif2.distancePe
 Dinucleotide-environment view
 -----------------------------
 
-function call: dinucleotide.view( data.file=F, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot="", save.plot.to=F )
+function call: dinucleotide.view( data.file=NA, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot="", save.plot.to=F )
 
 Plotting this view first requires the use of the provided perl code: preVisualization_dinucleotide_alignment_perlCode.pl
 The perl code generates an output file with the extension *.dinuc.align which is submitted to the R function: dinucleotide.view(). If the plot provides a motif alignment that is confusing, check the input into the perl code.
@@ -88,10 +91,6 @@ Example file provided:
 filename = "testdata/testdata_dinucleotideView_Stat1_helas_1000bp.dinuc.align"
 
 dinucleotide.view( data.file=filename, x1.adj=100, x2.adj=100 )
-
-
-All visualization functions have an option to save the plot: 'save.plot.to'.  The view.help() function usage details state that the absolute path describing the location to save the plot is necessary e.g. save.plot.to="/directory1/directory2/filename".  However, if prior to running the visualization function you use the setwd() command to tell R the destination for the plots to be save, e.g. setwd("directory1/directory2"), then R will automatically use the path specificed, and the only string to provide to 'save.plot.to' will be the filename  e.g.  save.plot.to="filename"
-
 
 
 
@@ -118,7 +117,8 @@ Options:
 
 Example files provided:
 
-filename=testdata/testdata_dinucleotideView_Stat1_helas_1000bp.fa
-meta=testdata/testdata_dinucleotideView_Stat1_helas_1000bp.metafile
+filename=testdata/testdata_dinucleotideView_Stat1_helas_1000bp.fa      # fasta sequence file
+meta=testdata/testdata_dinucleotideView_Stat1_helas_1000bp.metafile    # meta file with offset and strand
 
 perl preVisualization_dinucleotide_alignment_perlCode.pl -f testdata/testdata_dinucleotideView_Stat1_helas_1000bp.fa -m testdata/testdata_dinucleotideView_Stat1_helas_1000bp.metafile -o testdata/testdata_Stat1_helas_1000bp -p 5 -s 6 -w 15 
+
