@@ -105,7 +105,8 @@ The perl code requires four arguments and has two optional arguments. Required i
 If there are header lines in either of the two files, the lines must start with a number sign (#) to show they are comments and not data.
 
 To view the options, type on the command line:  perl preVisualization_dinucleotide_alignment_perlCode.pl
-Options:
+
+The following options will be shown:
 -f  = fasta seq file
 -m  = meta file: motif offset RELATIVE TO START OF SEQ and strand if using it
 -p  = column number containing motif offset (a column in -m metafile). First column is 1. 
