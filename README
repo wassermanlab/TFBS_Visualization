@@ -104,13 +104,13 @@ The perl code requires four arguments and has two optional arguments. Required i
 
 If there are header lines in either of the two files, the lines must start with a number sign (#) to show they are comments and not data.
 
-To view the options, type on the command line:  perl preVisualization_dinucleotide_alignment_perlCode.pl
+To view the possible input to the code, type on the command line:  perl preVisualization_dinucleotide_alignment_perlCode.pl
 
 The following options will be shown:
--f  = fasta seq file
--m  = meta file: motif offset RELATIVE TO START OF SEQ and strand if using it
--p  = column number containing motif offset (a column in -m metafile). First column is 1. 
--o  = output name  (output extension will be: *.dinuc.align)
+-f  = fasta seq file (required)
+-m  = meta file: motif offset RELATIVE TO START OF SEQ and strand if using it (required)
+-p  = column number containing motif offset (a column in -m metafile). First column is 1. (required) 
+-o  = output name  (output extension will be: *.dinuc.align)  (required)
 -s  = (optional) column number containing strand +/- (a column in -m meta file). First columnn is 1.
 -w  = (optional) motif 'width' i.e. length of PFM. Necessary for alignment adjustment between +/- strands.
 
