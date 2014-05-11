@@ -1,5 +1,6 @@
+
 ######################################
-# Rebecca Worsley Hunt -- 2013.11.20 #
+# Rebecca Worsley Hunt -- 2014.05.05 #
 # Wasserman Lab                      #
 # University of British Columbia     #
 ######################################
@@ -7,78 +8,104 @@
 README
 
 ===========================================================================
+R code to generate visualization plots
+
 Visualization_methods_Rcode.R
 ===========================================================================
 
 If R is not yet installed, visit http://cran.r-project.org
 
-To load the functions within the file Visualization_methods_Rcode.R, use the command source() e.g. source("/directory1/directory2/Visualization_methods_Rcode.R"), where /directory1/directory2/ etc. represent the location (absolute path) of the R Visualization code.
+To load the functions within the file: Visualization_methods_Rcode.R, use the command source() e.g. source("/directory1/directory2/Visualization_methods_Rcode.R"), where /directory1/directory2/ is the location (absolute path) of the R Visualization code.
 
-To view the usage of the four plotting functions, with details on function arguments, use the command view.help() (the last function provided in the R file). Below is a brief synopsis.
+To view the usage of the four plotting functions, with details on function arguments, use the command view.help() (this is the last function provided in the R file). Below is a brief synopsis.
 
-If data files are in one directory, and/or you intend to save files to the same directory, you can use the setwd() command (set working directory) to avoid typing the absolute path to your files each time you use a Visualization function e.g. all your data files are in /Users/yourName/dir1/dir2/. Thus, use setwd("/Users/yourName/dir1/dir2/") to work within this directory. You can use getwd() command to check that the working directory is set as you expected. R will now automatically use the path specified for retrieving and saving files until you change the path with setwd() or by providing an absolute path to the function arguments. Now, to identify a data file or to save a plot, you only need to use the name of the file instead of the full path e.g. data.file="testdata_CBplot_Hnf4a_Hepg_200bp.txt" or save.plot.to="CBplot_Hnf4a"
+If data files are in one directory, and/or you intend to save output files to the same directory, you can use the setwd() command (set working directory) to avoid typing the absolute path to your files every time you call a Visualization function.
+e.g. all your data files are in /Users/yourName/dir1/dir2/. Thus, use: setwd("/Users/yourName/dir1/dir2/") to work within this directory. You can use getwd() command to check that the working directory is set as you expected. R will now automatically use the path specified for retrieving and saving files until you change the path with setwd() or by providing an absolute path to the function arguments. Now, to specify a data file (or to save a plot), you only need to use the name of the file instead of the full path e.g. data.file="testdata_CBplot_Hnf4a_Hepg_200bp.txt" or save.plot.to="CBplot_Hnf4a"
+
+Example:
+The Visualization code and examples are in: /directory1/directory2/
+
+   setwd("/directory1/directory2/")
+   getwd()
+   source("Visualization_methods_Rcode.R")
+   view.help()
+
+   landscape.view( data.file="testdata_landscape_or_bimotif_Nfyb_K562_1000bp.txt", col.X=4, col.Y=5)
 
 
-
----------------------
-Composition-bias plot 
----------------------
+------------------------------
+Composition-bias plot function
+------------------------------
 
 function call:  CB.plot( data.file=NA, col.X=0, col.Y=0, col.Y.pval=F, yaxis.lim=F, col.TFnames=0, headerline=T, title.plot="", save.plot.to=F )
 
-Generates a plot with PFM GC nucleotide composition on the x-axis and motif enrichment score on the y-axis. The PFM GC nucleotide composition must be provided by the user if the motif enrichment software does not provide it. We only know of one motif enrichment software that provides PFM GC composition: oPOSSUM 3.0, however this can be simply calculated from the PFM binding profiles.
+Generates a plot with PFMs GC nucleotide composition on the x-axis and motif enrichment scores on the y-axis. The PFM GC nucleotide composition must be provided in the submitted file. We are aware of one motif over-representation software that provides PFM GC composition: oPOSSUM 3.0; however this value can be calculated simply from PFM binding profiles.
 
 Example file provided:
 
-filename = "testdata/testdata_CBplot_Hnf4a_Hepg_200bp.txt"
+filename = "testdata_CBplot_Hnf4a_Hepg_200bp.txt"
 
-CB.plot( data.file= filename, col.X=3, col.Y=4  )
+Example function calls:
+#provide column numbers
+   CB.plot( data.file= filename, col.X=3, col.Y=4  )
 
-CB.plot( data.file= filename, col.X="GC.Content", col.Y="Zscore", col.TFnames=1 )
+#or provide column names; provide TF names
+   CB.plot( data.file= filename, col.X="GC.Content", col.Y="Zscore", col.TFnames=1 )
 
 
--------------------
-TFBS-landscape view
--------------------
+----------------------------
+TFBS-landscape view function
+----------------------------
 
-function call: landscape.view( data.file=NA,  col.X=0, col.Y=0, score.type="relative", yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot="", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20)
+function call:  landscape.view( data.file=NA,  col.X=0, col.Y=0, score.type="relative", yaxis.lim1=F, yaxis.lim2=F, headerline=T, title.plot="", save.plot.to=F, threshold=F, heuristic.plot=F , heur.resid.fold=2, heur.score.diff=0.20)
 
-Requires TF-motif distances to the peak local maximum (or peak centre) of a set of sequences (x-axis) and the associated PWM motif scores (y-axis). Distance measurement is best done from motif centre to peakMax. PWM motif scores can be either the raw score, or the relative score, but the code will not handle p-values. If PWM raw scores are used, they may produce different results than the relative score. Relative scores allow single value hard-coded parameters to be used in the code (such as cutoff values) across all PWMs, but because the code could not assume access to the full range of each PWM's raw scores, it could not convert the hard coded parameter values to the equivalent raw scores specific to each PWM. The hard-coded parameters were approximated but will not be a perfect match for each PWM. Use the optional heuristic decision plots to confirm results.
+X-axis requires TF motif distances to a point in a sequence, such as a ChIP-Seq peak local maximum (or peak centre), for a set of sequences. The y-axis requires the motif scores for those motifs. Distance measurement (x-axis) is best done from motif centre to peakMax. PWM motif scores can be either the raw score, or the relative score, but the code will not handle p-values. If PWM raw scores are used, they may produce different results than the relative score. Relative scores permit single value hard-coded parameters to be used in the code (such as cutoff values) that are comparable across all PWMs; the hard-coded parameters are not exactly converted to raw score equivalents because the R code could not assume access to the full range of each PWM's raw scores which is necessary to convert the hard-coded parameters. The hard-coded parameters were approximated but will not be a perfect match for each PWM. Use the optional plots (i.e. set 'heuristic.plot=T') which show the heuristic boundaries for motif density (distance from peak local maximum, and motif score threshold) to confirm results.
 
-When the optional arguments 'threshold' or 'heuristic.plot' are set to T (true), the enrichment zone boundary and the motif score threshold are returned as a vector. They can be stored in a variable, by setting a variable equal to the function call e.g. my_result = landscape.view( data.file, col.X=2, col.Y=5, score.type="relative", headerline=T, threshold=T)
-To view the results type the variable name and hit enter/return. If a variable is not set equal to the function, the results will be printed to the screen.
+When the optional arguments 'threshold' or 'heuristic.plot' are set to T (true), the motif enrichment zone boundary and the motif score threshold  values are returned as a vector. They can be stored in a variable, by setting a variable equal to the function call e.g. myresult = landscape.view( data.file, col.X=2, col.Y=5, score.type="relative", headerline=T, threshold=T)
+To view the results type the variable name (e.g. myresults) and hit enter/return. If a variable is not set equal to the function, the results will be printed to the screen.
 
 
 Example file provided:
 
-filename = "testdata/testdata_landscape_or_bimotif_Nfyb_K562_1000bp.txt"
+filename = "testdata_landscape_or_bimotif_Nfyb_K562_1000bp.txt"
 
-landscape.view( data.file=filename, col.X=4, col.Y=5 )
+Example function calls:
+#print results to screen; provide only column numbers
+  landscape.view( data.file=filename, col.X=4, col.Y=5 )
 
-results = landscape.view( data.file=alias, col.X="motif1.distancePeakMax", col.Y="motif1.score", yaxis.lim1=0.02, title.plot="Nfyb", threshold=T )
+#print results to screen; provide column names; set limits to the y-axis; provide a title for the plot
+  landscape.view( data.file=alias, col.X="motif1.distancePeakMax", col.Y="motif1.score", yaxis.lim1=0.02, title.plot="Nfyb", threshold=T )
+
+#save results to the variable: myresults
+  myresults = landscape.view( data.file=alias, col.X="motif1.distancePeakMax", col.Y="motif1.score" )
 
 
-------------------
-TFBS-bi-motif view
-------------------
+---------------------------
+TFBS-bi-motif view function
+---------------------------
 
 function call: bimotif.view( data.file=NA,  col.X=0, col.Y=0, resolution=5, yaxis.lim=F, headerline=T, title.plot="", save.plot.to=F )
 
-While col.X and col.Y provide the column number for the motif_1 distance to peakMax and motif_2 distance to peakMax respectively within the data.file, the R code will convert the distances to plot the spacing between motif_2 and motif_1 on the x-axis and the distance from motif_1 to peakMax on the y-axis. Distance measurement is best done from motif centre to peakMax.
+While col.X and col.Y provide the column number for the motif_1 distance to peakMax and motif_2 distance to peakMax respectively within the data.file, the R code will use those distances to calculate and plot the spacing between motif_2 and motif_1 on the x-axis. The distance from motif_1 to the peakMax will be retained for the y-axis. For the user, the initial distance from motif to peakMax is best calculated from the centre of the motif to the peakMax.
 
 
 Example file provided:
 
-filename = "testdata/testdata_landscape_or_bimotif_Nfyb_K562_1000bp.txt"
+filename = "testdata_landscape_or_bimotif_Nfyb_K562_1000bp.txt"
 
-bimotif.view( data.file=filename,  col.X=4, col.Y=6 )
+Example function calls:
+#provide column numbers
+  bimotif.view( data.file=filename,  col.X=4, col.Y=6 )  
 
-bimotif.view( filename, col.X="motif1.distancePeakMax", col.Y="motif2.distancePeakMax", resolution=10, title.plot="Nfyb")
+#or provide column names; set resolution; set a plot title
+  bimotif.view( filename, col.X="motif1.distancePeakMax", col.Y="motif2.distancePeakMax", resolution=10, title.plot="Nfyb")
 
 
------------------------------
-Dinucleotide-environment view
------------------------------
+--------------------------------------
+Dinucleotide-environment view function
+--------------------------------------
+
+To obtain the alignment files that are submitted to the Dinucleotide-environment R code, see below: "preVisualization_dinucleotide_alignment_perlCode.pl"
 
 function call: dinucleotide.view( data.file=NA, x1.adj=100, x2.adj=100, yaxis.lim=F, title.plot="", save.plot.to=F )
 
@@ -87,38 +114,43 @@ The perl code generates an output file with the extension *.dinuc.align which is
 
 Example file provided:
 
-filename = "testdata/testdata_dinucleotideView_Stat1_helas_1000bp.dinuc.align"
+filename = "testdata_dinucleotideView_Stat1_helas_1000bp.dinuc.align"
 
-dinucleotide.view( data.file=filename, x1.adj=100, x2.adj=100 )
-
-
+Example function call:
+  dinucleotide.view( data.file=filename, x1.adj=100, x2.adj=100 )
 
 
 ===========================================================================
+perl code to generate dinucleotide alignment files
+
 preVisualization_dinucleotide_alignment_perlCode.pl
 ===========================================================================
 
-The dinucleotide alignment code, requires that the user have a fasta file for the sequences of interest, and know the location of the feature of interest (e.g. TFBS motif) relative to the start of each sequence. If the offset of the motif from the start of the sequence is measured as the distance between sequence-start to motif-middle, then this must be converted to the distance between sequence-start and motif-left-edge. If no strand is provided, all feature and sequences are assumed to be in a 5'-3' orientation (also indicated with +ve sign). If strand is provided, the assumption is that a -ve sign indicates the feature is in a 3'-5' orientation in the sequence and thus the code will reverse compliment the sequence to orient the feature in a 5'-3' direction to align with other 5'-3' features.  
+The dinucleotide alignment code, requires that the user have a fasta file for the sequences of interest, and know the location of the feature of interest (e.g. TFBS motif) relative to the start of each sequence. The offset of the feature must be from sequence start (left edge) to feature's left edge (do not use the centre of the feature). If no strand is provided, all features are assumed to be in a 5'-3' orientation (also indicated with +ve sign). If strand is provided, the assumption is that a -ve sign indicates the feature is in a 3'-5' orientation in the sequence and thus the code will reverse compliment the sequence to orient the feature in a 5'-3' direction to align with other 5'-3' features.  
 
-The perl code requires four arguments and has two optional arguments. Required is a fasta file of sequences, a seperate meta file with at least one column providing the offset of the feature relative to the sequence start (start = 1), or at least two columns if the strand/orientation of the feature is provided. There is no expected format for the meta file, therefore the columns containing the one (or two) types of information of interest must be specified. The last required argument is an output name for the results file, to which an extension of *.dinuc.align will be appended.
+The perl code requires four arguments and has two optional arguments. Required is a fasta file of sequences, a seperate meta file with at least one column providing the offset of the feature start relative to the sequence start (start = 1). There is no expected format for the meta file, therefore the column containing the offset information must be specified (argument 3). The last required argument is an output name for the results file, to which an extension of *.dinuc.align will be appended.  The two optional arguments are necessary when there is an expected orientation to the feature: a column in the metafile for the strand (strand is - or +), and the width of the feature. The width is used to calculate strand-based alignment.
 
 If there are header lines in either of the two files, the lines must start with a number sign (#) to show they are comments and not data.
 
-To view the possible input to the code, type on the command line:  perl preVisualization_dinucleotide_alignment_perlCode.pl
+To view the options, enter on the command line:  
+
+  perl preVisualization_dinucleotide_alignment_perlCode.pl
 
 The following options will be shown:
--f  = fasta seq file (required)
--m  = meta file: motif offset RELATIVE TO START OF SEQ and strand if using it (required)
--p  = column number containing motif offset (a column in -m metafile). First column is 1. (required) 
--o  = output name  (output extension will be: *.dinuc.align)  (required)
+-f  = fasta seq file
+-m  = meta file: motif offset RELATIVE TO START OF SEQ and strand if using it
+-p  = column number containing motif offset (a column in -m metafile). First column is 1. 
+-o  = output name  (output extension will be: *.dinuc.align)
 -s  = (optional) column number containing strand +/- (a column in -m meta file). First columnn is 1.
 -w  = (optional) motif 'width' i.e. length of PFM. Necessary for alignment adjustment between +/- strands.
 
 
 Example files provided:
 
-filename=testdata/testdata_dinucleotideView_Stat1_helas_1000bp.fa      # fasta sequence file
-meta=testdata/testdata_dinucleotideView_Stat1_helas_1000bp.metafile    # meta file with offset and strand
+testdata_dinucleotideView_Stat1_helas_1000bp.fa      # fasta sequence file
+testdata_dinucleotideView_Stat1_helas_1000bp.metafile    # meta file with offset and strand
 
-perl preVisualization_dinucleotide_alignment_perlCode.pl -f testdata/testdata_dinucleotideView_Stat1_helas_1000bp.fa -m testdata/testdata_dinucleotideView_Stat1_helas_1000bp.metafile -o testdata/testdata_Stat1_helas_1000bp -p 5 -s 6 -w 15 
+Example command line:
+
+ perl preVisualization_dinucleotide_alignment_perlCode.pl  -f testdata_dinucleotideView_Stat1_helas_1000bp.fa  -m testdata_dinucleotideView_Stat1_helas_1000bp.metafile  -o testdata_Stat1_helas_1000bp  -p 5  -s 6  -w 15 
 
